@@ -68,12 +68,3 @@ checks. Negative tests rejected an incomplete cover, duplicate child, invalid
 terminal bound, disabled assertions and a damaged payload. See VALIDATION.json
 for the precise test scope and hashes, and VERIFICATION_REPORT.json for exact
 results. These reports are diagnostic artifacts, not verifier inputs.
-
-PYTHON OR MATHEMATICA?
-Python is the primary release: the current exact replay has been executed, and
-readers need only the standard library. Mathematica is useful as an optional
-companion for compact symbolic calculations and independently checking algebra.
-The project's earlier Mathematica prototype was not executed in a Wolfram
-kernel; it should not be presented as an independently validated verifier.
-The language itself does not confer rigor: exact arithmetic, complete coverage
-and explicit acceptance conditions are what matter.

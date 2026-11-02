@@ -1,0 +1,66 @@
+SOURCE MAP AND PROVENANCE — 2 November 2026
+
+After: python3 verify_scheduling.py --extract-only readable_source
+
+run_checks.py
+    Checks the file manifest, runs the selected computational groups, and writes
+    RUNNING, PASS, PARTIAL_PASS, FAIL or INTERRUPTED. Full PASS requires all three.
+check_analytic.py
+    Connects the analytic interval kernels to the manuscript's explicit bounds;
+    checks denominator/Jacobian constants, shape coverage, endpoint nesting and
+    signs, and the final exact value bracket.
+analytic/
+    Rational interval arithmetic, stable-curve residual replay, shape and
+    boundary replay, four finite JSON inputs, and high-high constant checks.
+rational/replay_rational_upper.py
+    Exact candidate enumeration and evaluation for piecewise quadratic regions.
+rational/upper_candidate_EXACT.json
+    The finite rational knots and values defining the rule being checked.
+check_three.py
+    Reconstructs the closed subdivision forest and every leaf box; checks
+    coverage, all dual witnesses, and exact probability integrals in bounded
+    batches. Root/terminal volume equality is an additional redundant check.
+three/
+    Exact cone/simplex integration and probability/dual kernels for the two
+    clock laws; support-orbit enumeration and mathematical-domain definitions.
+three/data/
+    74 JSONL files: two full-support roots in one file, and 73 mixed-support
+    roots. Together: 181,507 tree records and 90,791 accepted terminal boxes.
+MANIFEST.json
+    SHA256 digests of all 95 module/input files. The manifest is also protected
+    by the containing archive digest. Hashes establish packaging consistency.
+
+The standalone script provides the launcher and compressed archive. Source
+comments and names inherited from the original project sometimes use earlier
+terminology (for example, marginals); their mathematical roles are the q_ij
+probabilities or complete assignment probabilities specified in Appendix A.
+
+PROVENANCE WITHIN THE AUTHOR'S PROJECT
+The finite inputs and exact kernels originate in:
+    Exact_Two_Machine_Addendum_20261027.zip
+    Scheduling_n3_Universal_Mixture_Certificate_20261027.zip
+and the exact rational fallback files:
+    replay_rational_upper.py
+    upper_candidate_EXACT.json
+All are retained in the project's historical certificate supplement. These
+historical archives, and the separately frozen Appendix A snapshot, were not
+modified to produce this release.
+
+RELEASE TRANSFORMATIONS
+The three-machine JSONL records retain root/tree/split structure, terminal
+boxes and proposed dual weights. Historical reported terminal bounds and
+search metadata are removed. Proposed weights are stored as explicit
+nonnegative rational strings, obtained with the original replay's rational
+conversion rule (denominator limit 10^8). Acceptance does not rely on that
+choice being optimal: the verifier checks the weights and repairs the free
+dual multiplier by an exact maximum before recomputing the upper bound.
+
+The three-machine driver adds explicit complete-tree and closed-box checks and
+bounded-memory execution. The analytic wrapper checks the stronger displayed
+constants, full shape coverage and endpoint nesting in addition to the original
+exact kernels. The analytic kernel exposes its exact denominator/Jacobian
+metrics for those checks. The rational replay and its finite input are retained.
+
+No numerical optimizer is needed at verification time. Search history and
+precomputed success reports are not part of the embedded archive. The proposed
+finite data are inputs to be checked, not assumptions of successful verification.

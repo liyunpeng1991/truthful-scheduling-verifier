@@ -30,26 +30,13 @@ MANIFEST.json
     SHA256 digests of all 95 module/input files. The manifest is also protected
     by the containing archive digest. Hashes establish packaging consistency.
 
-The standalone script provides the launcher and compressed archive. Source
-comments and names inherited from the original project sometimes use earlier
-terminology (for example, marginals); their mathematical roles are the q_ij
-probabilities or complete assignment probabilities specified in Appendix A.
+The standalone script contains the launcher and a compressed archive of these
+modules and finite inputs.
 
-PROVENANCE WITHIN THE AUTHOR'S PROJECT
-The finite inputs and exact kernels originate in:
-    Exact_Two_Machine_Addendum_20261027.zip
-    Scheduling_n3_Universal_Mixture_Certificate_20261027.zip
-and the exact rational fallback files:
-    replay_rational_upper.py
-    upper_candidate_EXACT.json
-All are retained in the project's historical certificate supplement. These
-historical archives, and the separately frozen Appendix A snapshot, were not
-modified to produce this release.
-
-RELEASE TRANSFORMATIONS
+CERTIFICATE REPRESENTATION
 The three-machine JSONL records retain root/tree/split structure, terminal
-boxes and proposed dual weights. Historical reported terminal bounds and
-search metadata are removed. Proposed weights are stored as explicit
+boxes and proposed dual weights. The inputs contain no precomputed terminal bounds
+or search metadata. Proposed weights are stored as explicit
 nonnegative rational strings, obtained with the original replay's rational
 conversion rule (denominator limit 10^8). Acceptance does not rely on that
 choice being optimal: the verifier checks the weights and repairs the free

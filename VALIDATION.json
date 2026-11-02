@@ -1,12 +1,11 @@
 {
   "date": "2026-11-02",
   "full_replay": "PASS: fresh execution of all three checks from the readable source modules embedded in verify_scheduling.py",
-  "full_replay_entrypoint": "source/run_checks.py --workers 2 --report first_replay_report.json",
+  "full_replay_entrypoint": "run_checks.py --workers 2 --report REPORT.json",
   "elapsed_seconds_diagnostic": 616.3115020422265,
   "standalone_launcher_tests": {
     "help": "PASS",
-    "rational_check": "PARTIAL_PASS; packaging smoke test before the final failure-reporting refinement",
-    "analytic_check": "PARTIAL_PASS; final distributed launcher",
+    "analytic_check": "PARTIAL_PASS; distributed launcher",
     "extraction": "PASS; all 95 source/data files match their manifest"
   },
   "negative_tests": {

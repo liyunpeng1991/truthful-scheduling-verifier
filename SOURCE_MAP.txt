@@ -1,53 +1,41 @@
-SOURCE MAP AND PROVENANCE — 2 November 2026
+SOURCE MAP
 
-After: python3 verify_scheduling.py --extract-only readable_source
+Run python3 verify_scheduling.py --extract-only readable_source to inspect
+the files below. MANIFEST.json gives a SHA-256 hash for each module, input
+and notation file. The launcher checks that the manifest covers the archive.
+run_checks.py verifies those hashes, runs the requested groups and writes
+their results to the report.
 
-run_checks.py
-    Checks the file manifest, runs the selected computational groups, and writes
-    RUNNING, PASS, PARTIAL_PASS, FAIL or INTERRUPTED. Full PASS requires all three.
-check_analytic.py
-    Connects the analytic interval kernels to the manuscript's explicit bounds;
-    checks denominator/Jacobian constants, shape coverage, endpoint nesting and
-    signs, and the final exact value bracket.
-analytic/
-    Rational interval arithmetic, stable-curve residual replay, shape and
-    boundary replay, four finite JSON inputs, and high-high constant checks.
-rational/replay_rational_upper.py
-    Exact candidate enumeration and evaluation for piecewise quadratic regions.
-rational/upper_candidate_EXACT.json
-    The finite rational knots and values defining the rule being checked.
-check_three.py
-    Reconstructs the closed subdivision forest and every leaf box; checks
-    coverage, all dual witnesses, and exact probability integrals in bounded
-    batches. Root/terminal volume equality is an additional redundant check.
-three/
-    Exact cone/simplex integration and probability/dual kernels for the two
-    clock laws; support-orbit enumeration and mathematical-domain definitions.
-three/data/
-    74 JSONL files: two full-support roots in one file, and 73 mixed-support
-    roots. Together: 181,507 tree records and 90,791 accepted terminal boxes.
-MANIFEST.json
-    SHA256 digests of all 95 module/input files. The manifest is also protected
-    by the containing archive digest. Hashes establish packaging consistency.
+Section 6. The analytic two-machine optimum
 
-The standalone script contains the launcher and a compressed archive of these
-modules and finite inputs.
+check_analytic.py connects the interval calculations to the bounds in the
+paper. analytic/analytic_exact/ contains the uniform and endpoint polynomial
+data, the shape data, and replay_stable_curve_fraction.py, which bounds the
+residual and the contraction. analytic/prepare_curve_shape_input.py
+reconstructs the shape enclosures. The other modules in analytic/ check the
+shape on its whole parameter interval, the signs at the boundary, and the
+Hessian estimates.
 
-CERTIFICATE REPRESENTATION
-The three-machine JSONL records retain root/tree/split structure, terminal
-boxes and proposed dual weights. The inputs contain no precomputed terminal bounds
-or search metadata. Proposed weights are stored as explicit
-nonnegative rational strings, obtained with the original replay's rational
-conversion rule (denominator limit 10^8). Acceptance does not rely on that
-choice being optimal: the verifier checks the weights and repairs the free
-dual multiplier by an exact maximum before recomputing the upper bound.
+Section 7. Three machines
 
-The three-machine driver adds explicit complete-tree and closed-box checks and
-bounded-memory execution. The analytic wrapper checks the stronger displayed
-constants, full shape coverage and endpoint nesting in addition to the original
-exact kernels. The analytic kernel exposes its exact denominator/Jacobian
-metrics for those checks. The rational replay and its finite input are retained.
+check_three.py verifies the two worked examples, reconstructs and exhausts
+each subdivision tree, and checks the bounds on its terminal boxes.
 
-No numerical optimizer is needed at verification time. Search history and
-precomputed success reports are not part of the embedded archive. The proposed
-finite data are inputs to be checked, not assumptions of successful verification.
+three/rational_cone.py computes exact simplex probabilities and the assignment
+law for each clock map. three/scheduling.py evaluates the makespan of each
+complete assignment. three/strata.py enumerates the support and minimum-order
+patterns. three/verify_fullsupport_orbits.py checks relabeling for the two
+full-support roots.
+
+three/fullsupport_kernel.py and three/strata_kernel.py bound probabilities and
+costs on full- and mixed-support boxes. three/dual_weights.py checks the
+proposed multipliers. three/volume.py computes clipped box volumes as a
+second check on the cover. three/data/ contains 74 files: one for the two
+full-support roots and one for each of the 73 mixed-support roots.
+
+Section 8. The piecewise rational two-machine rule
+
+rational/upper_candidate_EXACT.json contains the knot values, coefficients,
+maximizing pair and bound. rational/replay_rational_upper.py reconstructs the
+pieces, checks 178,506 candidates across 44,118 polygons, and evaluates the
+original objective at the maximizing pair.

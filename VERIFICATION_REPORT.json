@@ -7,12 +7,18 @@
       "polygons": 44118,
       "candidates": 178506,
       "maximum": "6742585099439191488032872130310743621/4477159992806878068875810000000000000",
-      "cap": "752998007/500000000"
+      "cap": "752998007/500000000",
+      "maximizing_ratios": {
+        "s": "22424400611859/20241960999661",
+        "t": "2409698519395404162636445/895431998561375613775162"
+      },
+      "exact_slack": "3768235555478115190710596379/4477159992806878068875810000000000000"
     },
     "analytic": {
       "status": "PASS",
       "scope": "analytic certificate premises",
       "shape_leaves": 19,
+      "shape_max_depth": 8,
       "shape_coverage": true,
       "displayed_bounds_checked": true,
       "endpoints": [
@@ -938,13 +944,12 @@
             "(3, 8, 8)": "7/32"
           }
         }
-      ],
-      "elapsed_seconds_diagnostic": 570.5624609999359
+      ]
     }
   },
-  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
-  "workers": 2,
+  "python": "3.12.14",
+  "workers": 5,
   "arithmetic": "exact integers and fractions; integer square-root enclosures",
   "scope": "finite computational premises; mathematical reductions remain in the paper",
-  "elapsed_seconds_diagnostic": 616.3115020422265
+  "embedded_archive_sha256": "2294f9c031fd07738c5affad18b18217796a0c6fbf7fd4a737479b44253b033a"
 }

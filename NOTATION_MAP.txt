@@ -1,0 +1,52 @@
+PAPER-TO-CODE NOTATION
+
+Machines i and jobs j use zero-based Python indices. At truthful bids b=t,
+times[i][j] is the processing time t_ij. assignment[j] represents A(j) in a
+sampled or enumerated outcome. The helper makespan sums the assigned jobs on
+each machine and returns their maximum load C_max(t,A).
+
+A^*(j) is the machine receiving job j in a fixed optimal assignment and
+T=OPT(t) is its makespan. When the auxiliary assignment may be approximate,
+the paper writes A^aux for it and T_aux for its makespan. In a normalized
+three-column input, job j has owner j and its time on that machine is one.
+The sampled winner assignment[j] can be a different machine.
+
+Section 7 / Appendix A (three-machine calculation)
+q_bounds: returns the bounds q_ij^- and q_ij^+ in job-major order 3*j+i.
+fullsupport_kernel: t_lower,t_upper are endpoint processing-time matrices;
+q_lower,q_upper are individual assignment-probability bounds.
+clock_map[i][j] is kappa(i,j), the clock used by machine i for job j.
+Figure 4 uses owner rows and machine columns. In the code, machine i is
+the row and job j is the column. In a normalized triple job j has owner j.
+A repeated clock label uses the same draw in every column.
+law(times,CYC) and law(times,PAIR) return (assignment, probability, makespan)
+under a fixed map. Their probabilities are y_A^cyc and y_A^pair. The global
+fair coin gives y_A=(y_A^cyc+y_A^pair)/2. Under either map summing over
+assignments with A(j)=i gives the same q_ij. prob_bound computes box bounds
+for one specified map. Its exact dual yields U_cyc or U_pair; the sum is
+checked against 4. On the worked profile of Section 7.1 the assignments
+(1,1,0) under the cyclic and pair maps have probabilities 1/9 and 17/234.
+lambda_q,mu_q weight q_ij^+,q_ij^-; alpha_y,beta_y weight y_A^+,y_A^-.
+read_dual_weights rejects negative proposals and chooses rational multipliers with
+denominators at most 10^8. Each kernel recomputes the free multiplier nu from them.
+upper_bound is the resulting expectation bound; integral_count counts integrals.
+The same weights have the same roles in the mixed-support exact_dual.
+
+Section 8 / Appendix A (piecewise rational rule)
+knots and values specify f; segment_coefficients stores (a_j,b_j) in f(x)=a_j+b_j/x.
+s,t are the two scalar ratios in Phi_f(s,t).
+(c00,c10,c01,c20,c11,c02) represents
+Q(s,t)=c00+c10*s+c01*t+c20*s^2+c11*s*t+c02*t^2.
+(s0,t0),(s1,t1) are consecutive polygon vertices. tau parametrizes their edge.
+edge_linear and edge_quadratic are the coefficients of tau and tau^2.
+hessian_determinant equals 4*c20*c02-c11^2. best is the maximum R(f).
+The report gives its attaining pair (maximizing_ratios) and cap - R(f) (exact_slack).
+
+Section 6 / Appendix A (analytic rule)
+The analytic module's interval class I has rational endpoints l,u.
+The code coordinates a,g,v represent a_r(z), G_r(z), v_r(z). Here z is
+the curve parameter and a_r(z) is a cost ratio. At the partner the parameter
+is lam*z, where lam is lambda_r. The real parameter interval is I_z.
+In verify_high_high_constants.py, negative_f_xx_lower and negative_f_yy_lower
+bound -F_xx and -F_yy from below; abs_f_xy_upper bounds |F_xy| from above.
+They imply the determinant bound greater than 1/4 in Section 6.6.
